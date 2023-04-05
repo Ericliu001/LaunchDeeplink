@@ -1,15 +1,14 @@
 package com.example.launchdeeplink
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -39,30 +38,51 @@ class MainActivity : ComponentActivity() {
 }
 
 fun launchDeeplink(context: Context, deeplinkValue: String) {
+    if (deeplinkValue.isEmpty()) {
+        return
+    }
+
     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(deeplinkValue))
-    startActivity(context, intent, null)
+    try {
+        startActivity(context, intent, null)
+    } catch (e: ActivityNotFoundException) {
+        Toast.makeText(context, "${e.message}", Toast.LENGTH_SHORT).show()
+    }
 }
 
 @Composable
 fun Main(context: Context) {
     var deeplink = remember { mutableStateOf("") }
     Column(
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier.padding(24.dp)
     ) {
         Text(text = "Enter your deeplink:")
-        Spacer(modifier = Modifier.padding(16.dp))
+        Spacer(modifier = Modifier.padding(4.dp))
         TextField(
             value = deeplink.value,
             onValueChange = { deeplink.value = it },
             label = { Text("paste here:") },
+            modifier = Modifier.fillMaxWidth()
         )
-        Spacer(modifier = Modifier.padding(16.dp))
+        Spacer(modifier = Modifier.padding(8.dp))
 
-        Button(
-            onClick = {
-                launchDeeplink(context, deeplink.value)
-            }) {
-            Text(text = "Launch Deeplink")
+        Row {
+            Button(
+                onClick = {
+                    launchDeeplink(context, deeplink.value)
+                }) {
+                Text(text = "Launch Deeplink")
+            }
+
+            Spacer(modifier = Modifier.padding(16.dp))
+
+            Button(
+                onClick = {
+                    deeplink.value = ""
+                }) {
+                Text(text = "Clear")
+            }
+
         }
     }
 }
