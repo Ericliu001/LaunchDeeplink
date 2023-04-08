@@ -1,4 +1,4 @@
-package com.example.launchdeeplink.ui.theme
+package com.ericliu.launchdeeplink.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

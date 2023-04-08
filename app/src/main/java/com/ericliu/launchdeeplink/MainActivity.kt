@@ -1,4 +1,4 @@
-package com.example.launchdeeplink
+package com.ericliu.launchdeeplink
 
 import android.content.ActivityNotFoundException
 import android.content.Context
@@ -18,7 +18,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
-import com.example.launchdeeplink.ui.theme.LaunchDeeplinkTheme
+import com.ericliu.launchdeeplink.ui.theme.LaunchDeeplinkTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

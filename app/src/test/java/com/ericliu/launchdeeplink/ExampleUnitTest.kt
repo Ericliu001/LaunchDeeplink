@@ -1,4 +1,4 @@
-package com.example.launchdeeplink
+package com.ericliu.launchdeeplink
 
 import org.junit.Test
 
